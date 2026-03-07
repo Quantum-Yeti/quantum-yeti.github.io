@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -13,19 +12,19 @@
 body{
 margin:0;
 font-family:system-ui;
-background:linear-gradient(#000000,#0B1E3D);
+background:black;
 color:white;
 overflow-x:hidden;
 }
 
-/* floating background stars */
+/* starfield */
 
 .star{
 position:absolute;
 width:2px;
 height:2px;
 background:white;
-opacity:.6;
+opacity:.7;
 animation:twinkle 3s infinite alternate;
 }
 
@@ -34,22 +33,19 @@ from{opacity:.2}
 to{opacity:1}
 }
 
-/* header */
+/* moving UFO */
 
-header{
-text-align:center;
-padding:120px 20px;
+.ufo{
+position:fixed;
+top:80px;
+left:-200px;
+font-size:60px;
+animation:fly 20s linear infinite;
 }
 
-h1{
-font-size:56px;
-margin:0;
-}
-
-.tagline{
-opacity:.8;
-font-size:20px;
-margin-top:10px;
+@keyframes fly{
+0%{transform:translateX(0)}
+100%{transform:translateX(120vw)}
 }
 
 /* floating icons */
@@ -57,13 +53,31 @@ margin-top:10px;
 .icon{
 position:absolute;
 font-size:28px;
-animation:float 10s infinite ease-in-out;
+animation:float 6s ease-in-out infinite;
 }
 
 @keyframes float{
-0%{transform:translateY(0px)}
-50%{transform:translateY(-20px)}
-100%{transform:translateY(0px)}
+0%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+100%{transform:translateY(0)}
+}
+
+/* header */
+
+header{
+text-align:center;
+padding:140px 20px;
+}
+
+h1{
+font-size:60px;
+margin:0;
+}
+
+.tagline{
+opacity:.8;
+font-size:20px;
+margin-top:10px;
 }
 
 /* sections */
@@ -89,7 +103,7 @@ transition:.2s;
 
 .card:hover{
 transform:translateY(-6px);
-background:#181818;
+background:#1a1a1a;
 }
 
 a{
@@ -109,13 +123,17 @@ opacity:.6;
 
 <body>
 
+<!-- moving UFO -->
+
+<div class="ufo">🛸</div>
+
 <!-- floating icons -->
 
-<div class="icon" style="top:20%;left:10%">🛸</div>
-<div class="icon" style="top:60%;left:85%">💻</div>
-<div class="icon" style="top:40%;left:75%">🎵</div>
-<div class="icon" style="top:70%;left:20%">⚙️</div>
-<div class="icon" style="top:30%;left:50%">🧮</div>
+<div class="icon" style="top:30%;left:15%">🎵</div>
+<div class="icon" style="top:60%;left:75%">💻</div>
+<div class="icon" style="top:40%;left:60%">{ }</div>
+<div class="icon" style="top:70%;left:30%">⚙️</div>
+<div class="icon" style="top:20%;left:80%">🎹</div>
 
 <header>
 
@@ -132,8 +150,8 @@ Software Developer • Python • Java • Rust
 <h2>About</h2>
 
 <p>
-Developer interested in computer science, mathematics, music, and creative software projects.
-I build desktop applications, Android apps, and experimental tools.
+Developer interested in computer science, mathematics, classical music, and creative software projects.
+Inspired by the work of composer Ludwig van Beethoven and the beauty of structured systems.
 </p>
 
 </section>
@@ -152,29 +170,40 @@ Loading repositories...
 
 <footer>
 
-<p>
-© 2026 Quantum Yeti
-</p>
+<p>© 2026 Quantum Yeti</p>
 
 </footer>
 
 <script>
 
-/* load GitHub repos */
+/* generate starfield */
+
+for(let i=0;i<120;i++){
+
+let star=document.createElement("div")
+star.className="star"
+
+star.style.top=Math.random()*100+"vh"
+star.style.left=Math.random()*100+"vw"
+
+document.body.appendChild(star)
+
+}
+
+/* load github repos */
 
 fetch("https://api.github.com/users/quantum-yeti/repos")
 
-.then(res => res.json())
+.then(res=>res.json())
 
-.then(data => {
+.then(data=>{
 
-let container = document.getElementById("repos")
-
+let container=document.getElementById("repos")
 container.innerHTML=""
 
-data.forEach(repo => {
+data.forEach(repo=>{
 
-let card = document.createElement("div")
+let card=document.createElement("div")
 card.className="card"
 
 card.innerHTML=`
