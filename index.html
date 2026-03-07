@@ -113,7 +113,7 @@ function runCommand(cmd){
   if(c === 'help'){
     appendOutput('Commands: <strong>help, about, projects, links, donate, clear</strong>');
   } else if(c === 'about'){
-    appendOutput('I'm a software engineer that loves building open source projects and creative software to solve problems.');
+    appendOutput('I'm a software engineer that loves building open source projects and creative software that solves problems.');
   } else if(c === 'projects'){
     repos.forEach(r => appendOutput(`<a href="${r.url}" target="_blank">${r.name}</a>`));
   } else if(c === 'links'){
