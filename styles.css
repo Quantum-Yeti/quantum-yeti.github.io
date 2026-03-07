@@ -1,12 +1,52 @@
-/* Global */
+/* --- Terminal CLI Style --- */
 body {
-  margin: 0;
+  background-color: #0d1117;
+  color: #c9d1d9;
   font-family: 'JetBrains Mono', monospace;
-  background: #0a0a0a;
-  color: #eee;
+  margin: 0;
   line-height: 1.5;
-  padding: 20px;
+  overflow-x: hidden;
 }
+
+header, section, footer {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  z-index: 20; /* above stars */
+}
+
+h1, h2 {
+  color: #58a6ff;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #c9d1d9;
+  margin: 5px 0 15px 0;
+}
+
+a {
+  color: #3fb950;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* Projects cards */
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: #161b22;
+  padding: 12px 16px;
+  border-left: 4px solid #58a6ff;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.card:hover { background: #21262d; }
 
 /* Starfield */
 .star {
@@ -16,74 +56,62 @@ body {
   background: white;
   opacity: 0.7;
   animation: twinkle 3s infinite alternate;
+  z-index: 0;
 }
-@keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+@keyframes twinkle { from { opacity: 0.2 } to { opacity: 1 } }
 
-/* Compact Header */
-.compact-header {
-  max-width: 700px;
-  margin: 0 auto 20px;
-}
-.header-top {
+/* UFO stationary in header */
+header h1 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
 }
-.header-top h1 {
-  font-size: 1.8rem;
-  margin: 0;
-}
-.header-links a {
-  color: #6ab0ff;
-  text-decoration: none;
-  margin-left: 15px;
-  font-size: 0.9rem;
-}
-.header-links a:hover { text-decoration: underline; }
-.compact-header .tagline { margin: 4px 0 0; font-size: 0.85rem; opacity: 0.7; }
 
-/* Sections */
-section { max-width: 700px; margin: 25px auto; }
-section h2 { margin-top: 0; margin-bottom: 10px; font-size: 1.2rem; opacity: 0.9; }
+/* UFO moves to the right side */
+header .ufo {
+  font-size: 80px;
+  margin-left: auto;      /* push it to the right */
+  animation: float 2s ease-in-out infinite alternate;
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-10px); }
+}
 
-/* Projects */
-.projects .card {
-  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  border: 1px solid transparent;
+/* Terminal section */
+#terminal {
+  background: #010409;
+  border: 2px solid #58a6ff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 40px auto;
+  max-width: 900px;
+  color: #c9d1d9;
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 300px;
+  overflow-y: auto;
 }
-.projects .card:hover {
-  transform: translateY(-6px);
-  background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  border: 1px solid #6ab0ff;
-}
-.projects .card img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 8px;
-  object-fit: cover;
-  height: 140px;
-  transition: transform 0.3s ease;
-}
-.projects .card:hover img { transform: scale(1.05); }
-.projects .card h3 {
-  margin: 5px 0;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-.projects .card p {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-.projects .card:hover h3 { color: #6ab0ff; }
-.projects .card:hover p { opacity: 1; }
 
-/* Footer */
-footer { text-align: center; opacity: 0.6; margin-top: 40px; font-size: 0.85rem; }
+.prompt {
+  display: flex;
+  margin-top: 5px;
+}
+
+.prompt span {
+  color: #58a6ff;
+  margin-right: 5px;
+}
+
+input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #c9d1d9;
+  font-family: inherit;
+  font-size: 16px;
+  flex: 1;
+}
+.output a {
+  color: #3fb950;
+  text-decoration: underline;
+}
+.output a:hover { color: #58ff87; }

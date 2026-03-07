@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quantum Yeti</title>
 
-<!-- Monospace font for clean developer style -->
+<!-- Monospace font for terminal style -->
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link href="styles.css" rel="stylesheet">
 </head>
+
 <body>
 
 <!-- Starfield -->
@@ -23,78 +24,127 @@ for(let i=0;i<120;i++){
 </script>
 
 <!-- Header -->
-<header class="compact-header">
-  <div class="header-top">
-    <h1>Quantum Yeti</h1>
-    <div class="header-links">
-        ->
-      <a href="https://github.com/quantum-yeti" target="_blank">GitHub</a>
-      <a href="https://play.google.com/store/apps/dev?id=8208308725281252914" target="_blank">Google Play</a>
-      <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/" target="_blank">Sheet Music</a>
-    </div>
-  </div>
-  <p class="tagline">Software Developer • Java • Python • Rust</p>
+<header>
+  <h1>
+    Quantum Yeti
+    <span class="ufo">🛸</span>
+  </h1>
 </header>
 
 <!-- About -->
 <section>
-  <h2>About</h2>
+  <h2>&gt; About</h2>
   <p>
-    Software developer with a master’s degree in Software Engineering. Passionate about computer science, mathematics, and creative projects where code meets art.
+    Software developer with a master’s degree in Software Engineering. Passionate about computer science, music, and creative software projects.
   </p>
+</section>
+
+<!-- Terminal CLI -->
+<section>
+  <h2>&gt; Terminal</h2>
+  <div id="terminal">
+    <div class="output">Welcome to Quantum Yeti's Terminal!</div>
+    <div class="output">Type <span style="color:#58a6ff">help</span> for commands.</div>
+    <div class="prompt">
+      <span>$</span><input id="terminal-input" autofocus />
+    </div>
+  </div>
 </section>
 
 <!-- Projects -->
 <section>
-  <h2>Projects</h2>
+  <h2>&gt; Projects</h2>
   <div class="projects" id="repos">Loading repositories...</div>
+</section>
+
+<!-- Connect -->
+<section>
+  <h2>&gt; Connect</h2>
+  <p>
+    <a href="https://github.com/quantum-yeti">GitHub</a> •
+    <a href="https://quantumyeti.github.io">Portfolio</a> •
+    <a href="https://play.google.com/store/apps/dev?id=8208308725281252914">Google Play</a> •
+    <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/">Sheet Music</a>
+  </p>
 </section>
 
 <!-- Footer -->
 <footer>
-  <p>© 2026 Quantum Yeti</p>
+  <p>&gt; © 2026 Quantum Yeti</p>
 </footer>
 
-<!-- GitHub Projects Script (fetch images from repo root) -->
 <script>
+// ------------------ GitHub Projects ------------------
 const container = document.getElementById("repos");
-
-// Mapping of specific images per repo (using raw.githubusercontent URLs!)
-const projectImages = {
-  "ScratchBoard": "https://raw.githubusercontent.com/Quantum-Yeti/ScratchBoard/master/screenshots/screenshotdash.png",
-  "KawaiiCalc": "", // fallback to avatar
-  "WifiMuscles": "https://raw.githubusercontent.com/Quantum-Yeti/WifiMuscles/master/ScreenShot1.png"
-};
-
 fetch("https://api.github.com/users/quantum-yeti/repos")
 .then(res => res.json())
 .then(data => {
   container.innerHTML = "";
-
   data.forEach(repo => {
-    // Repos to exclude
-    const exclude = ["KawaiiCalc", "quantum-yeti.github.io", "quantum-yeti"];
-    if (exclude.includes(repo.name)) return;
+    const exclude = ["quantum-yeti.github.io","quantum-yeti"];
+    if(exclude.includes(repo.name)) return;
 
     const card = document.createElement("div");
     card.className = "card";
-
-    // Use specific image if defined and non-empty, else fallback to avatar
-    const imgSrc = projectImages[repo.name] && projectImages[repo.name].trim() !== ""
-                   ? projectImages[repo.name]
-                   : repo.owner.avatar_url;
-
     card.innerHTML = `
-      <img src="${imgSrc}" alt="${repo.name}">
       <h3>${repo.name}</h3>
       <p>${repo.description ?? "Open source project."}</p>
       <a href="${repo.html_url}" target="_blank">View Repository →</a>
     `;
-
     container.appendChild(card);
   });
 })
 .catch(err => console.error(err));
+
+// ------------------ Terminal ------------------
+const terminal = document.getElementById('terminal');
+const input = document.getElementById('terminal-input');
+
+const repos = [
+  {name:"ScratchBoard", url:"https://github.com/Quantum-Yeti/ScratchBoard"},
+  {name:"KawaiiCalc", url:"https://github.com/Quantum-Yeti/KawaiiCalc"},
+  {name:"WifiMuscles", url:"https://github.com/Quantum-Yeti/WifiMuscles"}
+];
+
+function appendOutput(html){
+  const div = document.createElement('div');
+  div.className = 'output';
+  div.innerHTML = html;
+  terminal.insertBefore(div, terminal.querySelector('.prompt'));
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function runCommand(cmd){
+  const c = cmd.trim().toLowerCase();
+  if(c === 'help'){
+    appendOutput('Commands: <strong>help, about, projects, links, donate, clear</strong>');
+  } else if(c === 'about'){
+    appendOutput('Software Developer • Java • Python • Rust.<br>I love building open source projects and creative software.');
+  } else if(c === 'projects'){
+    repos.forEach(r => appendOutput(`<a href="${r.url}" target="_blank">${r.name}</a>`));
+  } else if(c === 'links'){
+    appendOutput(`<a href="https://quantumyeti.github.io" target="_blank">Portfolio</a> •
+                  <a href="https://github.com/Quantum-Yeti" target="_blank">GitHub</a> •
+                  <a href="https://play.google.com/store/apps/dev?id=8208308725281252914" target="_blank">Google Play</a> •
+                  <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/" target="_blank">Sheet Music</a>`);
+  } else if(c === 'donate'){
+    appendOutput(`<a href="#">Ko-fi</a> • <a href="#">PayPal</a> • <a href="#">GitHub Sponsors</a>`);
+  } else if(c === 'clear'){
+    const outputs = terminal.querySelectorAll('.output');
+    outputs.forEach(o => o.remove());
+  } else {
+    appendOutput(`Command not found: ${cmd}`);
+  }
+}
+
+input.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    const cmd = input.value;
+    appendOutput(`<span style="color:#58a6ff">$</span> ${cmd}`);
+    runCommand(cmd);
+    input.value = '';
+  }
+});
 </script>
 
 </body>
