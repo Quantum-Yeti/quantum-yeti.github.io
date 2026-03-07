@@ -1,223 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Quantum Yeti</title>
 
-<style>
-
-body{
-margin:0;
-font-family:system-ui;
-background:black;
-color:white;
-overflow-x:hidden;
-}
-
-/* starfield */
-
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:white;
-opacity:.7;
-animation:twinkle 3s infinite alternate;
-}
-
-@keyframes twinkle{
-from{opacity:.2}
-to{opacity:1}
-}
-
-/* moving UFO */
-
-.ufo{
-position:fixed;
-top:80px;
-left:-200px;
-font-size:60px;
-animation:fly 20s linear infinite;
-}
-
-@keyframes fly{
-0%{transform:translateX(0)}
-100%{transform:translateX(120vw)}
-}
-
-/* floating icons */
-
-.icon{
-position:absolute;
-font-size:28px;
-animation:float 6s ease-in-out infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(0)}
-50%{transform:translateY(-15px)}
-100%{transform:translateY(0)}
-}
-
-/* header */
-
-header{
-text-align:center;
-padding:140px 20px;
-}
-
-h1{
-font-size:60px;
-margin:0;
-}
-
-.tagline{
-opacity:.8;
-font-size:20px;
-margin-top:10px;
-}
-
-/* sections */
-
-section{
-max-width:900px;
-margin:auto;
-padding:60px 20px;
-}
-
-.projects{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card{
-background:#111;
-padding:20px;
-border-radius:12px;
-transition:.2s;
-}
-
-.card:hover{
-transform:translateY(-6px);
-background:#1a1a1a;
-}
-
-a{
-color:#6ab0ff;
-text-decoration:none;
-}
-
-footer{
-text-align:center;
-padding:50px;
-opacity:.6;
-}
-
-</style>
-
+<!-- Monospace font for clean developer style -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="styles.css" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- moving UFO -->
+<!-- Starfield -->
+<script>
+for(let i=0;i<120;i++){
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.top = Math.random()*100 + "vh";
+  star.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(star);
+}
+</script>
 
-<div class="ufo">🛸</div>
-
-<!-- floating icons -->
-
-<div class="icon" style="top:30%;left:15%">🎵</div>
-<div class="icon" style="top:60%;left:75%">💻</div>
-<div class="icon" style="top:40%;left:60%">{ }</div>
-<div class="icon" style="top:70%;left:30%">⚙️</div>
-<div class="icon" style="top:20%;left:80%">🎹</div>
-
-<header>
-
-<h1>Quantum Yeti</h1>
-
-<p class="tagline">
-Software Developer • Python • Java • Rust
-</p>
-
+<!-- Header -->
+<header class="compact-header">
+  <div class="header-top">
+    <h1>Quantum Yeti</h1>
+    <div class="header-links">
+        ->
+      <a href="https://github.com/quantum-yeti" target="_blank">GitHub</a>
+      <a href="https://play.google.com/store/apps/dev?id=8208308725281252914" target="_blank">Google Play</a>
+      <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/" target="_blank">Sheet Music</a>
+    </div>
+  </div>
+  <p class="tagline">Software Developer • Java • Python • Rust</p>
 </header>
 
+<!-- About -->
 <section>
-
-<h2>About</h2>
-
-<p>
-Developer interested in computer science, mathematics, classical music, and creative software projects.
-Inspired by the work of composer Ludwig van Beethoven and the beauty of structured systems.
-</p>
-
+  <h2>About</h2>
+  <p>
+    Software developer with a master’s degree in Software Engineering. Passionate about computer science, mathematics, and creative projects where code meets art.
+  </p>
 </section>
 
+<!-- Projects -->
 <section>
-
-<h2>Projects</h2>
-
-<div class="projects" id="repos">
-
-Loading repositories...
-
-</div>
-
+  <h2>Projects</h2>
+  <div class="projects" id="repos">Loading repositories...</div>
 </section>
 
+<!-- Footer -->
 <footer>
-
-<p>© 2026 Quantum Yeti</p>
-
+  <p>© 2026 Quantum Yeti</p>
 </footer>
 
+<!-- GitHub Projects Script (fetch images from repo root) -->
 <script>
+const container = document.getElementById("repos");
 
-/* generate starfield */
-
-for(let i=0;i<120;i++){
-
-let star=document.createElement("div")
-star.className="star"
-
-star.style.top=Math.random()*100+"vh"
-star.style.left=Math.random()*100+"vw"
-
-document.body.appendChild(star)
-
-}
-
-/* load github repos */
+// Mapping of specific images per repo (using raw.githubusercontent URLs!)
+const projectImages = {
+  "ScratchBoard": "https://raw.githubusercontent.com/Quantum-Yeti/ScratchBoard/master/screenshots/screenshotdash.png",
+  "KawaiiCalc": "", // fallback to avatar
+  "WifiMuscles": "https://raw.githubusercontent.com/Quantum-Yeti/WifiMuscles/master/ScreenShot1.png"
+};
 
 fetch("https://api.github.com/users/quantum-yeti/repos")
+.then(res => res.json())
+.then(data => {
+  container.innerHTML = "";
 
-.then(res=>res.json())
+  data.forEach(repo => {
+    // Repos to exclude
+    const exclude = ["KawaiiCalc", "quantum-yeti.github.io"];
+    if (exclude.includes(repo.name)) return;
 
-.then(data=>{
+    const card = document.createElement("div");
+    card.className = "card";
 
-let container=document.getElementById("repos")
-container.innerHTML=""
+    // Use specific image if defined and non-empty, else fallback to avatar
+    const imgSrc = projectImages[repo.name] && projectImages[repo.name].trim() !== ""
+                   ? projectImages[repo.name]
+                   : repo.owner.avatar_url;
 
-data.forEach(repo=>{
+    card.innerHTML = `
+      <img src="${imgSrc}" alt="${repo.name}">
+      <h3>${repo.name}</h3>
+      <p>${repo.description ?? "Open source project."}</p>
+      <a href="${repo.html_url}" target="_blank">View Repository →</a>
+    `;
 
-let card=document.createElement("div")
-card.className="card"
-
-card.innerHTML=`
-<h3>${repo.name}</h3>
-<p>${repo.description ?? "Open source project."}</p>
-<a href="${repo.html_url}">View Repository →</a>
-`
-
-container.appendChild(card)
-
+    container.appendChild(card);
+  });
 })
-
-})
-
+.catch(err => console.error(err));
 </script>
 
 </body>
