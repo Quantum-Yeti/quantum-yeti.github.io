@@ -29,6 +29,12 @@ for(let i=0;i<120;i++){
     Quantum Yeti
     <span class="ufo">🛸</span>
   </h1>
+  <p>
+    <a href="https://github.com/quantum-yeti">GitHub</a> •
+    <a href="https://quantumyeti.github.io">Portfolio</a> •
+    <a href="https://play.google.com/store/apps/dev?id=8208308725281252914">Google Play</a> •
+    <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/">Sheet Music</a>
+  </p>
 </header>
 
 <!-- About -->
@@ -53,19 +59,8 @@ for(let i=0;i<120;i++){
 
 <!-- Projects -->
 <section>
-  <h2>&gt; Projects</h2>
+  <h2>&gt; Featured Projects</h2>
   <div class="projects" id="repos">Loading repositories...</div>
-</section>
-
-<!-- Connect -->
-<section>
-  <h2>&gt; Connect</h2>
-  <p>
-    <a href="https://github.com/quantum-yeti">GitHub</a> •
-    <a href="https://quantumyeti.github.io">Portfolio</a> •
-    <a href="https://play.google.com/store/apps/dev?id=8208308725281252914">Google Play</a> •
-    <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/">Sheet Music</a>
-  </p>
 </section>
 
 <!-- Footer -->
@@ -119,7 +114,7 @@ function runCommand(cmd){
   if(c === 'help'){
     appendOutput('Commands: <strong>help, about, projects, links, donate, clear</strong>');
   } else if(c === 'about'){
-    appendOutput('Software Developer • Java • Python • Rust.<br>I love building open source projects and creative software.');
+    appendOutput('I'm a software engineer that loves building open source projects and creative software to solve problems.');
   } else if(c === 'projects'){
     repos.forEach(r => appendOutput(`<a href="${r.url}" target="_blank">${r.name}</a>`));
   } else if(c === 'links'){

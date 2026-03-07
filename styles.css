@@ -9,11 +9,15 @@ body {
 }
 
 header, section, footer {
-  padding: 20px;
-  max-width: 900px;
+  padding: 15px;
+  max-width: 1080px;
   margin: auto;
   position: relative;
   z-index: 20; /* above stars */
+}
+
+h1 {
+    margin: 4px 0 0 0;
 }
 
 h1, h2 {
@@ -68,7 +72,7 @@ header h1 {
 
 /* UFO moves to the right side */
 header .ufo {
-  font-size: 80px;
+  font-size: 75px;
   margin-left: auto;      /* push it to the right */
   animation: float 2s ease-in-out infinite alternate;
 }
@@ -84,7 +88,7 @@ header .ufo {
   border-radius: 6px;
   padding: 12px 16px;
   margin: 40px auto;
-  max-width: 900px;
+  max-width: 1080px;
   color: #c9d1d9;
   font-family: 'JetBrains Mono', monospace;
   min-height: 300px;
