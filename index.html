@@ -75,7 +75,7 @@ fetch("https://api.github.com/users/quantum-yeti/repos")
 .then(data => {
   container.innerHTML = "";
   data.forEach(repo => {
-    const exclude = ["quantum-yeti.github.io","quantum-yeti","KawaiiCalc"];
+    const exclude = ["quantum-yeti.github.io","quantum-yeti","KawaiiCalc", "kawaiicalc"];
     if(exclude.includes(repo.name)) return;
 
     const card = document.createElement("div");
