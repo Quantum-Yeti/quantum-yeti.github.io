@@ -1,145 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quantum Yeti</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Monospace font for terminal style -->
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
-<link href="styles.css" rel="stylesheet">
+  <title>Quantum Yeti — Software Engineer</title>
+
+  <meta
+    name="description"
+    content="Quantum Yeti — Software Engineer building production software, automation tools, backend systems, and applications."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!-- Starfield -->
-<script>
-for(let i=0;i<120;i++){
-  const star = document.createElement("div");
-  star.className = "star";
-  star.style.top = Math.random()*100 + "vh";
-  star.style.left = Math.random()*100 + "vw";
-  document.body.appendChild(star);
-}
-</script>
-
-<!-- Header -->
-<header>
-  <h1>
-    Quantum Yeti
-    <span class="ufo">🛸</span>
-  </h1>
-  <p>
-    <a href="https://github.com/quantum-yeti">GitHub</a> •
-    <a href="https://play.google.com/store/apps/dev?id=8208308725281252914">Google Play</a> •
-    <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/">Sheet Music</a>
-  </p>
-</header>
-
-<!-- About -->
-<section>
-  <h2>&gt; About</h2>
-  <p>
-    Software developer with a master’s degree in Software Engineering. Passionate about computer science, music, and creative software projects.
-  </p>
-</section>
-
-<!-- Terminal CLI -->
-<section>
-  <h2>&gt; Terminal</h2>
-  <div id="terminal">
-    <div class="output">Welcome to Quantum Yeti's Terminal!</div>
-    <div class="output">Type <span style="color:#58a6ff">help</span> for commands.</div>
-    <div class="prompt">
-      <span>$</span><input id="terminal-input" autofocus />
-    </div>
+  <!-- Ambient background -->
+  <div class="background">
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+    <div class="grid"></div>
   </div>
-</section>
 
-<!-- Projects -->
-<section>
-  <h2>&gt; Featured Projects</h2>
-  <div class="projects" id="repos">Loading repositories...</div>
-</section>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="brand">
+      <span class="brand-mark">QY</span>
+      <span>Quantum Yeti</span>
+    </a>
 
-<!-- Footer -->
-<footer>
-  <p>&gt; © 2026 Quantum Yeti</p>
-</footer>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-<script>
-// ------------------ GitHub Projects ------------------
-const container = document.getElementById("repos");
-fetch("https://api.github.com/users/quantum-yeti/repos")
-.then(res => res.json())
-.then(data => {
-  container.innerHTML = "";
-  data.forEach(repo => {
-    const exclude = ["quantum-yeti.github.io","quantum-yeti","KawaiiCalc", "kawaiicalc"];
-    if(exclude.includes(repo.name.toLowerCase())) return;
+  <main>
 
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <h3>${repo.name}</h3>
-      <p>${repo.description ?? "Open source project."}</p>
-      <a href="${repo.html_url}" target="_blank">View Repository →</a>
-    `;
-    container.appendChild(card);
-  });
-})
-.catch(err => console.error(err));
+    <!-- Hero -->
+    <section class="hero">
 
-// ------------------ Terminal ------------------
-const terminal = document.getElementById('terminal');
-const input = document.getElementById('terminal-input');
+      <div class="hero-content">
 
-const repos = [
-  {name:"ScratchBoard", url:"https://github.com/Quantum-Yeti/ScratchBoard"},
-  {name:"MarketBasketAnalysis", url:"https://github.com/Quantum-Yeti/MarketBasketAnalysis"},
-  {name:"WifiMuscles", url:"https://github.com/Quantum-Yeti/WifiMuscles"},
-  {name:"LotteryAPI", url:"https://github.com/Quantum-Yeti/LotteryAPI"}
-];
+        <div class="status">
+          <span class="status-dot"></span>
+          Software Engineer
+        </div>
 
-function appendOutput(html){
-  const div = document.createElement('div');
-  div.className = 'output';
-  div.innerHTML = html;
-  terminal.insertBefore(div, terminal.querySelector('.prompt'));
-  terminal.scrollTop = terminal.scrollHeight;
-}
+        <h1>
+          I build software<br>
+          <span>people actually use.</span>
+        </h1>
 
-function runCommand(cmd){
-  const c = cmd.trim().toLowerCase();
-  if(c === 'help'){
-    appendOutput('Commands: <strong>help, about, projects, links, donate, clear</strong>');
-  } else if(c === 'about'){
-    appendOutput('Software Engineer.<br>I love building open source projects that solves problems.');
-  } else if(c === 'projects'){
-    repos.forEach(r => appendOutput(`<a href="${r.url}" target="_blank">${r.name}</a>`));
-  } else if(c === 'links'){
-    appendOutput(`<a href="https://github.com/Quantum-Yeti" target="_blank">GitHub</a> •
-                  <a href="https://play.google.com/store/apps/dev?id=8208308725281252914" target="_blank">Google Play</a> •
-                  <a href="https://www.sheetmusicplus.com/en/category/publishers/t/theoria-music-publishing/" target="_blank">Sheet Music</a>`);
-  } else if(c === 'donate'){
-    appendOutput(`<a href="#">Ko-fi</a> • <a href="#">PayPal</a> • <a href="#">GitHub Sponsors</a>`);
-  } else if(c === 'clear'){
-    const outputs = terminal.querySelectorAll('.output');
-    outputs.forEach(o => o.remove());
-  } else {
-    appendOutput(`Command not found: ${cmd}`);
-  }
-}
+        <p class="hero-description">
+          Software Engineer with an M.S. in Software Engineering from Penn State.
+          I build production applications, backend systems, automation tools,
+          data pipelines, and developer-focused software.
+        </p>
 
-input.addEventListener('keydown', e => {
-  if(e.key === 'Enter'){
-    const cmd = input.value;
-    appendOutput(`<span style="color:#58a6ff">$</span> ${cmd}`);
-    runCommand(cmd);
-    input.value = '';
-  }
-});
-</script>
+        <div class="hero-actions">
+          <a
+            class="button primary"
+            href="https://github.com/quantum-yeti"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View GitHub
+            <span>↗</span>
+          </a>
+
+          <a class="button secondary" href="#projects">
+            Explore Projects
+            <span>↓</span>
+          </a>
+        </div>
+
+        <div class="tech-strip">
+          <span>Python</span>
+          <span>Java</span>
+          <span>Spring Boot</span>
+          <span>PySide6</span>
+          <span>SQL</span>
+          <span>Docker</span>
+          <span>AI / LLM</span>
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+        <div class="orb">
+          <div class="orb-core">🛸</div>
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Quick stats -->
+    <section class="stats">
+
+      <div class="stat">
+        <strong>MS</strong>
+        <span>Software Engineering</span>
+      </div>
+
+      <div class="stat">
+        <strong>2+</strong>
+        <span>Platforms Shipped To</span>
+      </div>
+
+      <div class="stat">
+        <strong>20%</strong>
+        <span>Measured Productivity Gain</span>
+      </div>
+
+      <div class="stat">
+        <strong>10+</strong>
+        <span>Teams Using ScratchBoard</span>
+      </div>
+
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+
+      <div class="section-heading">
+        <span class="eyebrow">01 / ABOUT</span>
+        <h2>Engineering with a purpose.</h2>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-main">
+          <p>
+            I'm a software engineer focused on building practical software
+            from the ground up. My work spans desktop applications, backend
+            systems, automation, data processing, APIs, and Android development.
+          </p>
+
+          <p>
+            I enjoy taking a problem from an idea through architecture,
+            implementation, testing, deployment, and real-world use.
+            The projects I'm most proud of aren't just experiments —
+            they're software that has actually made it into people's hands.
+          </p>
+        </div>
+
+        <div class="about-card">
+
+          <div class="about-card-label">CURRENT STACK</div>
+
+          <div class="skill-list">
+            <span>Python</span>
+            <span>Java</span>
+            <span>SQL</span>
+            <span>Spring Boot</span>
+            <span>PySide6</span>
+            <span>Docker</span>
+            <span>REST APIs</span>
+            <span>CI/CD</span>
+            <span>Git</span>
+            <span>LLM Integration</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects">
+
+      <div class="section-heading">
+        <span class="eyebrow">02 / PROJECTS</span>
+        <h2>Things I've built.</h2>
+        <p>
+          A selection of software projects spanning desktop, backend,
+          mobile, data, and APIs.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- ScratchBoard -->
+        <article class="project featured">
+
+          <div class="project-top">
+            <div class="project-icon">SB</div>
+
+            <div class="project-links">
+              <a
+                href="https://github.com/Quantum-Yeti/ScratchBoard"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="ScratchBoard GitHub"
+              >
+                ↗
+              </a>
+            </div>
+          </div>
+
+          <div class="project-meta">
+            FEATURED PROJECT
+          </div>
+
+          <h3>ScratchBoard</h3>
+
+          <p>
+            Desktop application built for ISP support teams, combining modem
+            log parsing, MAC address and vendor lookups, password generation,
+            note-taking, and other support workflows in one application.
+          </p>
+
+          <div class="impact">
+            <strong>20%</strong>
+            <span>measured productivity improvement</span>
+          </div>
+
+          <div class="project-tags">
+            <span>Python</span>
+            <span>PySide6</span>
+            <span>SQLite</span>
+            <span>Desktop</span>
+          </div>
+
+          <div class="project-footer">
+            <span>Microsoft Store</span>
+
+            <a
+              href="https://github.com/Quantum-Yeti/ScratchBoard"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View project →
+            </a>
+          </div>
+
+        </article>
+
+        <!-- Lottery API -->
+        <article class="project">
+
+          <div class="project-top">
+            <div class="project-icon">API</div>
+
+            <a
+              href="https://github.com/Quantum-Yeti/LotteryAPI"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-arrow"
+            >
+              ↗
+            </a>
+          </div>
+
+          <div class="project-meta">BACKEND</div>
+
+          <h3>Lottery API</h3>
+
+          <p>
+            Spring Boot REST API that ingests lottery data, stores it in H2,
+            and exposes endpoints for querying and analytics.
+          </p>
+
+          <div class="project-tags">
+            <span>Java</span>
+            <span>Spring Boot</span>
+            <span>REST</span>
+            <span>H2</span>
+          </div>
+
+          <div class="project-footer">
+            <a
+              href="https://github.com/Quantum-Yeti/LotteryAPI"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View project →
+            </a>
+          </div>
+
+        </article>
+
+        <!-- WiFi Muscles -->
+        <article class="project">
+
+          <div class="project-top">
+            <div class="project-icon">WiFi</div>
+
+            <a
+              href="https://github.com/Quantum-Yeti/WifiMuscles"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-arrow"
+            >
+              ↗
+            </a>
+          </div>
+
+          <div class="project-meta">MOBILE</div>
+
+          <h3>WiFi Muscles</h3>
+
+          <p>
+            Android application that uses device telemetry and interactive
+            charts to visualize Wi-Fi connection and signal reliability.
+          </p>
+
+          <div class="project-tags">
+            <span>Java</span>
+            <span>Android SDK</span>
+            <span>Charts</span>
+          </div>
+
+          <div class="project-footer">
+
+            <a
+              href="https://play.google.com/store/apps/dev?id=8208308725281252914"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Play →
+            </a>
+
+            <a
+              href="https://github.com/Quantum-Yeti/WifiMuscles"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub →
+            </a>
+
+          </div>
+
+        </article>
+
+        <!-- Market Basket -->
+        <article class="project">
+
+          <div class="project-top">
+            <div class="project-icon">ML</div>
+
+            <a
+              href="https://github.com/Quantum-Yeti/MarketBasketAnalysis"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-arrow"
+            >
+              ↗
+            </a>
+          </div>
+
+          <div class="project-meta">DATA / ML</div>
+
+          <h3>Market Basket Analysis</h3>
+
+          <p>
+            End-to-end data pipeline using the Instacart dataset for data
+            processing, association-rule mining, predictive analysis,
+            and visualization.
+          </p>
+
+          <div class="project-tags">
+            <span>Python</span>
+            <span>Pandas</span>
+            <span>Scikit-Learn</span>
+            <span>Apriori</span>
+          </div>
+
+          <div class="project-footer">
+
+            <a
+              href="https://github.com/Quantum-Yeti/MarketBasketAnalysis"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View project →
+            </a>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- Experience philosophy -->
+    <section class="section philosophy">
+
+      <div class="quote">
+        <span class="quote-mark">“</span>
+
+        <p>
+          I like building software that starts with a real problem
+          and ends with something useful.
+        </p>
+
+        <span class="quote-label">— QUANTUM YETI</span>
+      </div>
+
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+
+      <div>
+        <span class="eyebrow">03 / CONTACT</span>
+
+        <h2>Let's build something.</h2>
+
+        <p>
+          Interested in software engineering, backend systems,
+          automation, data, or AI-powered applications?
+        </p>
+      </div>
+
+      <div class="contact-links">
+
+        <a
+          href="https://github.com/quantum-yeti"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+          <span>↗</span>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/jnkeenan1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+          <span>↗</span>
+        </a>
+
+        <a
+          href="https://play.google.com/store/apps/dev?id=8208308725281252914"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Play
+          <span>↗</span>
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+
+    <span>© 2026 Quantum Yeti</span>
+
+    <span>
+      Built with HTML, CSS & JavaScript
+    </span>
+
+  </footer>
 
 </body>
 </html>
